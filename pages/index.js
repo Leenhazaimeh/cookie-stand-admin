@@ -14,9 +14,9 @@ export default function Home() {
       <Header title={'Cookie Stand Admin'}>
         {/* <h1> Cookie Stand Admin </h1> */}
       </Header>
-      
+      {/* overviw */}
       <Main/>
-      <Footer/>
+      {/* <Footer/> */}
       
 
       
