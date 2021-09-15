@@ -1,25 +1,27 @@
-import Head from 'next/head'
-import Header from '../components/Header'
-import React, { useState } from 'react'
-import Main from'../components/Main'
-import Footer from '../components/Footer'
+import { useState } from 'react'
+import { getToken } from '../services/data-fetcher'
+
 
 export default function Home() {
-  return (
-    <div>
 
+    const [token, setToken] = useState();
 
-      
-      
-      <Header title={'Cookie Stand Admin'}>
-        {/* <h1> Cookie Stand Admin </h1> */}
-      </Header>
-      {/* overviw */}
-      <Main/>
-      {/* <Footer/> */}
-      
+    const [username, setUsername] = useState('');
 
-      
-    </div>
-  )
+    async function loginHandler(values) {
+
+        const fetchedToken = await getToken(values);
+
+        setToken(fetchedToken);
+
+        setUsername(values.username);
+    }
+
+    function logoutHandler() {
+        setToken(null);
+    }
+
+    if (!token) return <h2>Show Login Form</h2>
+
+    return <h2>Show the Cookie Stand Admin</h2>
 }

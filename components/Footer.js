@@ -1,8 +1,7 @@
-export default function Footer(props) {
+export default function CookieStandFooter({ reports }) {
     return (
-        <footer className="flex items-center justify-between p-4 mt-4 bg-green-500">
-            <h2> {props.report}8 Locations World Wide </h2>
-            
+        <footer>
+            <p>{reports.length} Locations World Wide</p>
         </footer>
     )
 }
