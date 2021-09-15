@@ -1,11 +1,7 @@
-
-
-export default function Footer() {
-
+export default function CookieStandFooter({ reports }) {
     return (
-        
-        <footer className="flex items-center justify-between p-4 bg-green-500 text-gray-50">
-            <h1 className="text-xl">(c)2021</h1>
+        <footer>
+            <p>{reports.length} Locations World Wide</p>
         </footer>
     )
 }

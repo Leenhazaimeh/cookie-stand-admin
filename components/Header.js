@@ -1,12 +1,20 @@
+import Link from 'next/link'
 
-export default function Header({ title, children }) {
-
+export default function CookieStandHeader({ username, onLogout }) {
     return (
-        <header className="flex items-center justify-between p-4 bg-green-500 text-gray-50">
-            <h1 className="text-4xl">{title}</h1>
-        
-       
-            {children}
+        <header >
+            <h1 >
+                Cookie Stand Admin
+                </h1>
+            <div >
+                <p >{username}</p>
+                <Link href="/">
+                    <a onClick={onLogout} >Sign Out</a>
+                </Link>
+                <nav>
+                    <Link href="/overview"><a>Overview</a></Link>
+                </nav>
+            </div>
         </header>
     )
 }
