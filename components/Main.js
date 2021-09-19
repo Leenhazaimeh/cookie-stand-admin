@@ -1,76 +1,59 @@
-import React, { useState } from "react";
-export default function Home() {
+import React,{ useState } from "react";
+import Creatform from "./Creatform";
+import ReportTable from "./ReportTable";
+import Footer from "./Footer";
 
-    const [cookieStands, setcookieStands] = useState([])
 
-    function tabelHandelar(event) {
+export default function Home () {
+    let hours=['6am','7am','8am','9am','10am','11am','12pm','1pm','2pm','3pm','4pm','5pm','6pm','7pm']
+    let [render , setStore]=useState([])
+    let [total , setTotal]=useState([])
 
-        event.preventDefault();
-
-        const tabelHandelar = {
-
-            location: event.target.location.value,
-            maximumPrehour: event.target.maximumPrehour.value,
-            minimum: event.target.minimum.value,
-            avg: event.target.avg.value
+   
+     let  calculations =()=>{ 
+        let myTotal=[]  
+         for (let i=0;i<=render .length-1;i++){
+            for (let j=0;j<=render [i].salePerHour.length-1;j++)
+                if (myTotal[j]){
+                    myTotal[j]+=render [i].salePerHour[j]
+                }else{
+                myTotal.push(render [i].salePerHour[j])
+                }
         }
-      
-        // let created = tabelHandelar
-        // created = JSON.stringify(created)
-        // console.log(created)
-        setcookieStands([...cookieStands,tabelHandelar])
+        setTotal([myTotal,myTotal.reduce((C, D) => C + D, 0)])
+        console.log(total);
 
     }
-    return (
-     <div>
-    <div className="w-2/3 h-56 mx-auto my-10 bg-green-300 rounded-lg ">
-    <h2 className="flex items-center justify-center text-xl h-12 "> Cookie Stand Admin</h2>
-
-    <form onSubmit={tabelHandelar}>
- <div>
-                       
-     <label for="location" className="ml-3 mr-2">Location</label>
-     <input type="text" name="location" id="location" className="flex-auto w-10/12 mt-2 rounded-sm bg-gray-200" />
-     </div>
-    <div className="flex mx-3 my-4 mt-8 justify-evenly w-7/8">
-    <div >
-     <label for="minimum" className="pr-1">minimum Customers Per Hour</label>
-    <br/>
-   <input type="text" name="minimum" id="minimum" className="" />
-    </div>
-   <div>
-   <label for="maximumPrehour" className="pr-1">maximum Customers per hour
-    </label>
-    <br/>
-    <input type="text" name="maximumPrehour" id="maximumPrehour" className="" />
-    </div>
-     <div>
-     <label for="avg" className="pr-1">Average Cookies per Sale </label>
-    <br/>
-    <input type="text" name="avg" id="avg" className="" />
-
-    </div>
-    <div className="mx-3 my-1 font-semibold bg-green-500 rounded flex-grow ">
-    <button className="ml-16 text-xl h-12" >Create </button>
-    </div>
-    </div>
-
-
-    </form>
-
-    </div>
-    <h3> Report Table Cominig Soon...</h3>
-    <div className="flex items-center justify-center text-xl h-12 flex-col">
     
-    {
-                    cookieStands.map(item => {
-                        return (
-                            <p class="m-2 text-xl">{JSON.stringify(item)}</p>
-                        )
-                    })
-                }
-            </div>
 
-        </div>
+    let tabelHandelar =((event)=>{
+        event.preventDefault()
+        let storeCity={
+            location:event.target.location.value,
+            maximumPrehour:event.target. maximumPrehour.value,
+            min:event.target.min.value,
+            avg:event.target.avg.value
+        }
+        let salePerHour=hours.map(()=>{
+            return Math.floor(Math.random() * parseInt(storeCity.avg) * (parseInt(storeCity. maximumPrehour) - parseInt(storeCity.min)+ 1) + parseInt(storeCity.min))
+         })
+        
+        let objectData={
+            location:event.target.location.value,
+            salePerHour:salePerHour,
+            sum:salePerHour.reduce((a, b) => a + b, 0)
+
+        }
+        setStore(render  => [...render , objectData])
+        calculations()       
+
+    })
+    
+    return (
+        <>
+        <Creatform tabelHandelar={tabelHandelar}/>
+        <ReportTable render ={render } total={total} />
+        <Footer reports={render } />
+        </>
     )
 }

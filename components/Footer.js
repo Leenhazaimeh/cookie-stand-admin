@@ -1,11 +1,8 @@
-
-
-export default function Footer() {
-
+export default function Footer(props) {
     return (
-        
-        <footer className="flex items-center justify-between p-4 bg-green-500 text-gray-50">
-            <h1 className="text-xl">(c)2021</h1>
+        <footer className="flex items-center justify-between p-4 mt-4 bg-green-500">
+            <h2> {props.report}8 Locations World Wide </h2>
+            
         </footer>
     )
 }
